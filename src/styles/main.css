@@ -1,16 +1,9 @@
-header{
-	background: #363636;
-	color: #F8F8FF;
-	height: 150px;
+.entry{
+	z-index: 200;
+	position: static;
+	height: 100%;
 }
-.name{
-	font-family: 'LiSu';
-	font-size: 50px;
-	text-indent: 4em;
-	padding: 5px;
-}
-.name_bottom{
-	padding: 5px;
-	line-height: 50px;
-	text-orientation: bottom;
+
+.top-half{
+	height: 50%;
 }
