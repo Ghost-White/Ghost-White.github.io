@@ -21,7 +21,7 @@ gulp.task('f-i', function() {   //fileinclude
           basepath: '@file'
         }))
     .pipe(gulp.dest(''))
-    .pipe(notify({ message: 'F-i task complete' }));
+  //  .pipe(notify({ message: 'F-i task complete' }));
 });
 
 
@@ -33,7 +33,7 @@ gulp.task('styles', function() {
     .pipe(rename({suffix: '.min'}))
     .pipe(minifycss())
     .pipe(gulp.dest('dist/assets/css'))
-    .pipe(notify({ message: 'Styles task complete' }));
+   // .pipe(notify({ message: 'Styles task complete' }));
 });
 
 
@@ -42,12 +42,12 @@ gulp.task('scripts', function() {
   return gulp.src('src/scripts/**/*.js')
     /*.pipe(jshint('.jshintrc'))*/
     /*.pipe(jshint.reporter('default'))*/
-    .pipe(concat('main.js'))
-    .pipe(gulp.dest('dist/assets/js'))
+    /*.pipe(concat('main.js'))*/
+    /*.pipe(gulp.dest('dist/assets/js'))*/
     .pipe(rename({suffix: '.min'}))
     .pipe(uglify())
     .pipe(gulp.dest('dist/assets/js'))
-    .pipe(notify({ message: 'Scripts task complete' }));
+   // .pipe(notify({ message: 'Scripts task complete' }));
 });
 
 //图片压缩
@@ -55,7 +55,7 @@ gulp.task('images', function() {
   return gulp.src('src/images/**/*')
     .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
     .pipe(gulp.dest('dist/assets/img'))
-    .pipe(notify({ message: 'Images task complete' }));
+   // .pipe(notify({ message: 'Images task complete' }));
 });
 
 

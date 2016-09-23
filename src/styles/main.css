@@ -1,9 +1,87 @@
+/*entry-begin*/
+html,body{
+	height: 100%;
+	width: 100%;
+}
 .entry{
 	z-index: 200;
-	position: static;
+	position: relative;
 	height: 100%;
+	width: 100%;
 }
 
 .top-half{
 	height: 50%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	background-color: #BBFFFF;
+	background: url("../img/bk-1.jpg");
+	background-position: bottom;
+	overflow: hidden;
 }
+
+.bottom-half{
+	height: 50%;
+	width: 100%;
+	position: absolute;
+	top: 50%;
+	background-color: #668B8B;
+	background: url("../img/bk-2.jpg");
+	background-position: top;
+}
+
+.bottom-half-top{
+	position: absolute;
+	top: 0;
+	height: 100px;
+	width: 100%;
+	background-color: #BBFFFF;
+	opacity: 0.5;
+}
+
+.bottom-half-top strong{
+	font-size: 30px;
+	color: #708090;
+	display: block;
+	padding-left: 50%;
+	text-indent: 5em;
+	padding-top: 30px;
+}
+
+.portrait{
+	width: 250px;
+	height: 250px;
+	position: absolute;
+	left: 50%;
+	top: -125px;
+}
+.portrait-img{
+	width: 250px;
+	height: 250px;
+	position: absolute;
+	left: -50%;
+	top: 0;
+	display: inline-block;
+	border-radius: 125px;
+	cursor: pointer;
+}
+.portrait-cover{
+	background-color: #87CEEB;
+	opacity: 0.8;
+	width: 250px;
+	height: 250px;
+	position: absolute;
+	left: -50%;
+	top: 0;
+	border-radius: 125px;
+	cursor: pointer;
+	font-size: 30px;
+	text-align: center;
+}
+.portrait-cover span{
+	display: block;
+	color: #708090;
+	padding-top: 100px;
+}
+/*entry-end*/

@@ -32,3 +32,6 @@ a{
 .fr{
 	float: right;
 }
+.hiden{
+	opacity: 0 !important;
+}
