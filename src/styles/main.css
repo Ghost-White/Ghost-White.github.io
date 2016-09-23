@@ -1,13 +1,84 @@
-/*entry-begin*/
 html,body{
 	height: 100%;
 	width: 100%;
 }
-.entry{
-	z-index: 200;
+/*container-begin*/
+.container{
+	z-index: 1;
 	position: relative;
 	height: 100%;
 	width: 100%;
+	background-color: #1C1C1C;
+	color: #E8E8E8;
+}
+.nav{
+	height: 100%;
+	width: 50px;
+	padding-left:150px;
+	color: #B5B5B5;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.nav span{
+	display: block;
+	width: 100%;
+	text-align: center;
+}
+.wraper{
+	float: left;
+	height: 100%;
+	width: 1100px;
+	position: relative;
+	margin-left: 300px;
+}
+.basical,.IT-skills,.projects{
+	width: 1100px;
+	height: 100%;
+	position: absolute;
+}
+.info{
+	width: 500px;
+	height: 500px;
+	float: left;
+	margin-top: 150px;
+}
+.photo{
+	width: 500px;
+	height: 500px;
+	float: left;
+	margin-top: 150px;
+	margin-left: 100px;
+}
+.info li{
+	height: 50px;
+	line-height: 50px;
+	width: 100%;
+}
+.tags{
+	display: inline-block;
+	font-size: 28px;
+	color: #9C9C9C;
+	width: 130px;
+	text-align: right;
+	padding: 10px;
+}
+.info strong{
+	display: inline-block;
+	width: 330px;
+	padding: 10px;
+	font-size: 28px;
+	font-weight: normal;
+}
+/*container-end*/
+
+/*entry-begin*/
+.entry{
+	z-index: 200;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	top: 0;
 }
 
 .top-half{
