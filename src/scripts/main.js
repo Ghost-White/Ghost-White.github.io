@@ -1,4 +1,6 @@
 $(function(){
+	
+
 	var scroll_1 = function(){
 		$(".top-half").animate({
 			top:"-50%"
@@ -35,123 +37,90 @@ $(function(){
 			}
 		}
 		
-
 		$(nav_array[last_nav_anchor]).animate({
 			top:"-100%"
 		},1500);
 
 		$(nav_array[nav_anchor]).animate({
 			top:"0"
-		},1500);
+		},1500,function(){
+			
+		});
 	}
 
-/*	var setMouseWheelScrolling = function (value){
-        if(value){
-            addMouseWheelHandler();
-        }else{
-            removeMouseWheelHandler();
-        }
-    }
+	var balls = $(".balls li");
+	var screenHeight = document.body.offsetHeight;
+	var ballHeight = balls[0].offsetHeight;
+	var ballsHeight = ballHeight*(balls.length);
+	var top_dis_u = Math.ceil((screenHeight-ballsHeight)/2);
 
-    function removeMouseWheelHandler(){
-        if (document.addEventListener) {
-            document.removeEventListener('mousewheel', MouseWheelHandler, false); //IE9, Chrome, Safari, Oper
-            document.removeEventListener('wheel', MouseWheelHandler, false); //Firefox
-            document.removeEventListener('MozMousePixelScroll', MouseWheelHandler, false); //old Firefox
-        } else {
-            document.detachEvent('onmousewheel', MouseWheelHandler); //IE 6/7/8
-        }
-    }
+	var balls_action = function(){
+		var ball_action = function(i,step){
+			var top_dis_ = i*ballHeight+'px';
+			var bottom_dis_ = (screenHeight-ballsHeight+i*ballHeight)+'px';
+			var middle_dis_ = top_dis_u+i*ballHeight;
+			var time_;
+			if(step==1){
+				dis_ = top_dis_;
+				time_ = 500+i*100;
+			}else if(step==2){
+				dis_ = bottom_dis_;
+				time_ = 1000-i*100;
+			}else if(step==3){
+				dis_ = middle_dis_;
+				time_ = 500+i*100;
+			}
+			$(balls[i]).animate({
+				top:dis_	
+			},time_);
+		}
+		var step_1 = function(){
+			ball_action(0,1);
+			ball_action(1,1);
+			ball_action(2,1);
+			ball_action(3,1);
+			ball_action(4,1);
+		}
 
-	function addMouseWheelHandler(){
-        var prefix = '';
-        var _addEventListener;
+		var step_2 = function(){
+			ball_action(0,2);
+			ball_action(1,2);
+			ball_action(2,2);
+			ball_action(3,2);
+			ball_action(4,2);
+		}
 
-        if (window.addEventListener){
-            _addEventListener = "addEventListener";
-        }else{
-            _addEventListener = "attachEvent";
-            prefix = 'on';
-        }
+		var step_3 = function(){
+			ball_action(0,3);
+			ball_action(1,3);
+			ball_action(2,3);
+			ball_action(3,3);
+			ball_action(4,3);
+		}
 
-         // detect available wheel event
-        var support = 'onwheel' in document.createElement('div') ? 'wheel' : // Modern browsers support "wheel"
-                  document.onmousewheel !== undefined ? 'mousewheel' : // Webkit and IE support at least "mousewheel"
-                  'DOMMouseScroll'; // let's assume that remaining browsers are older Firefox
+		step_1();
+		setTimeout(step_2,1000);
+		setTimeout(step_3,2000);
 
+		setTimeout(keydown_event,2900);
+	}
 
-        if(support == 'DOMMouseScroll'){
-            document[ _addEventListener ](prefix + 'MozMousePixelScroll', MouseWheelHandler, false);
-        }
+	var keydown_fun = function(){
+		$(document).off('keydown');
+		scroll_2("up");
+		balls_action();
+	}
+	var keydown_event = function(){
+		$(document).keydown(keydown_fun);
+	}
 
-        //handle MozMousePixelScroll in older Firefox
-        else{
-            document[ _addEventListener ](prefix + support, MouseWheelHandler, false);
-        }
-    }
-
-    function MouseWheelHandler(e) {
-        var curTime = new Date().getTime();
-        var isNormalScroll = true;
-
-        //autoscrolling and not zooming?
-        if(options.autoScrolling && !controlPressed && !isNormalScroll){
-            // cross-browser wheel delta
-            e = e || window.event;
-            var value = e.wheelDelta || -e.deltaY || -e.detail;
-            var delta = Math.max(-1, Math.min(1, value));
-
-            var horizontalDetection = typeof e.wheelDeltaX !== 'undefined' || typeof e.deltaX !== 'undefined';
-            var isScrollingVertically = (Math.abs(e.wheelDeltaX) < Math.abs(e.wheelDelta)) || (Math.abs(e.deltaX ) < Math.abs(e.deltaY) || !horizontalDetection);
-
-            //Limiting the array to 150 (lets not waste memory!)
-            if(scrollings.length > 149){
-                scrollings.shift();
-            }
-
-            //keeping record of the previous scrollings
-            scrollings.push(Math.abs(value));
-
-            //preventing to scroll the site on mouse wheel when scrollbar is present
-            if(options.scrollBar){
-                e.preventDefault ? e.preventDefault() : e.returnValue = false;
-            }
-
-            var activeSection = $(SECTION_ACTIVE_SEL);
-            var scrollable = options.scrollOverflowHandler.scrollable(activeSection);
-
-            //time difference between the last scroll and the current one
-            var timeDiff = curTime-prevTime;
-            prevTime = curTime;
-
-            //haven't they scrolled in a while?
-            //(enough to be consider a different scrolling action to scroll another section)
-            if(timeDiff > 200){
-                //emptying the array, we dont care about old scrollings for our averages
-                scrollings = [];
-            }
-
-            if(canScroll){
-                var averageEnd = getAverage(scrollings, 10);
-                var averageMiddle = getAverage(scrollings, 70);
-                var isAccelerating = averageEnd >= averageMiddle;
-
-                //to avoid double swipes...
-                if(isAccelerating && isScrollingVertically){
-                    //scrolling down?
-                    if (delta < 0) {
-                        scrolling('down', scrollable);
-
-                    //scrolling up?
-                    }else {
-                        scrolling('up', scrollable);
-                    }
-                }
-            }
-
-            return false;
-        }
-    }*/
+	var balls_unit = function(){
+		for(var i = 0;i<balls.length;i++){
+			top_dis = top_dis_u+i*ballHeight;
+			var top_dis_ = top_dis+'px';
+			$(balls[i]).css({top:top_dis_});
+		}	
+	}
 
 	$(".portrait-cover").hover(function(){
 		$(".portrait-cover").removeClass("hiden");
@@ -162,19 +131,12 @@ $(function(){
 	$("body")
 	.on('click','.portrait-cover',function(){
 		scroll_1();
-		});
+		balls_unit();
+	})
+	.on('click','.slider',function(){
+		keydown_fun();
+	});
+	
+	keydown_event();
 
-	$(document)
-	    .keydown(function(){
-			scroll_2("up");
-		});
-
-	/*$(document).on('mouseenter', true, function () {
-            setMouseWheelScrolling(false);
-        });
-
-        $document.on('mouseleave', true, function(){
-            setMouseWheelScrolling(true);
-        });
-    }*/
 });

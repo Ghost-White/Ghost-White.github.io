@@ -9,6 +9,7 @@ html,body{
 	height: 100%;
 	width: 100%;
 	background-color: #1C1C1C;
+	background: url("../img/bk-4.jpg");
 	color: #E8E8E8;
 	overflow: hidden;
 }
@@ -21,10 +22,13 @@ html,body{
 	top: 0;
 	left: 0;
 }
-.nav span{
-	display: block;
-	width: 100%;
-	text-align: center;
+.balls li{
+	width: 45px;
+	height: 45px;
+	position: absolute;
+	border-radius:22.5px;
+	overflow: hidden; 
+	top: 50%;
 }
 .wraper{
 	height: 100%;
@@ -49,6 +53,12 @@ html,body{
 	float: left;
 	margin-top: 150px;
 	margin-left: 100px;
+}
+.photo img{
+	display: block;
+	width: 300px;
+	height: 300px;
+	overflow: hidden;
 }
 .info li{
 	height: 50px;
@@ -94,7 +104,7 @@ html,body{
 .projects-list{
 	width: 100%;
 	height: 95px;
-	overflow: scroll;
+	overflow: hidden;
 	padding: 15px;
 }
 .projects-list h4{
@@ -112,6 +122,14 @@ html,body{
 }
 .projects-list .description{
 	color: #BEBEBE;
+}
+.slider{
+	position: absolute;
+	top: 75%;
+	left: 46%;
+	width: 200px;
+	height: 170px;
+	cursor: pointer;
 }
 /*container-end*/
 
