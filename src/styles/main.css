@@ -187,11 +187,27 @@ html,body{
 	font-size: 30px;
 	color: #708090;
 	display: block;
-	padding-left: 50%;
+	position: absolute;
+	left: 50%;
 	text-indent: 5em;
 	padding-top: 30px;
 }
-
+.bottom-half-top .nav_a{
+	display: block;
+	float: left;
+	height: 30px;
+	line-height: 30px;
+	margin: 30px 0 0 220px;
+}
+.bottom-half-top a{
+	font-size: 30px;
+	color: #4F4F4F;
+	padding-right: 60px;
+	font-weight: bold;
+}
+.bottom-half-top a:hover{
+	color: #008B45;
+}
 .portrait{
 	width: 250px;
 	height: 250px;
@@ -210,8 +226,8 @@ html,body{
 	cursor: pointer;
 }
 .portrait-cover{
-	background-color: #87CEEB;
-	opacity: 0.8;
+	background-color: #BBFFFF;
+	opacity: 0.5;
 	width: 250px;
 	height: 250px;
 	position: absolute;

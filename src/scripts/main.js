@@ -92,8 +92,7 @@ $(function(){
 
 	//小球运动
 	var balls_action = function(obj,k){
-		var ball_action = function(i,step){ 
-			
+		var ball_action = function(i,step){ 			
 			var top_dis_ = i*ballHeight+'px';
 			var bottom_dis_ = (screenHeight-ballsHeight+i*ballHeight)+'px';
 			var middle_dis_0 = (top_dis_u+(i-1)*ballHeight)+'px',
@@ -141,8 +140,6 @@ $(function(){
 		step_1();
 		setTimeout(step_2,1200);
 		setTimeout(step_3,2400);
-		// setTimeout(keydown_event,2900);		//防止多次按键
-		// setTimeout(slider_event,2900);		//防止多次点击螃蟹
 	};
 	
 
