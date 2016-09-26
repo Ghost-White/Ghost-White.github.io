@@ -1,11 +1,11 @@
 $(function(){
 	
-
 	var scroll_1 = function(){
 		$(".top-half").animate({
 			top:"-50%"
 		},1500,function(){
 			$(".top-half").addClass("hide");
+			$(".entry").addClass("hide");
 		});
 		$(".bottom-half").animate({
 			top:"120%"
@@ -103,17 +103,9 @@ $(function(){
 		setTimeout(step_3,2000);
 
 		setTimeout(keydown_event,2900);
+		setTimeout(slider_event,2900);
 	}
-
-	var keydown_fun = function(){
-		$(document).off('keydown');
-		scroll_2("up");
-		balls_action();
-	}
-	var keydown_event = function(){
-		$(document).keydown(keydown_fun);
-	}
-
+	
 	var balls_unit = function(){
 		for(var i = 0;i<balls.length;i++){
 			top_dis = top_dis_u+i*ballHeight;
@@ -121,6 +113,27 @@ $(function(){
 			$(balls[i]).css({top:top_dis_});
 		}	
 	}
+
+	var shaker = $(".slider");
+	var shake = function(){
+
+	}
+
+	var keydown_fun = function(){
+		$(document).off('keydown');
+		$("body").off('click','.slider');
+		scroll_2("up");
+		balls_action();
+	}
+	var keydown_event = function(){
+		$(document).keydown(keydown_fun);
+	}
+
+	var slider_event = function(){
+		$("body").on('click','.slider',function(){
+		keydown_fun();});
+	}
+
 
 	$(".portrait-cover").hover(function(){
 		$(".portrait-cover").removeClass("hiden");
@@ -132,11 +145,9 @@ $(function(){
 	.on('click','.portrait-cover',function(){
 		scroll_1();
 		balls_unit();
-	})
-	.on('click','.slider',function(){
-		keydown_fun();
 	});
 	
 	keydown_event();
+	slider_event();
 
 });

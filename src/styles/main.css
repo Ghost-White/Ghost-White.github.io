@@ -52,7 +52,6 @@ html,body{
 	height: 500px;
 	float: left;
 	margin-top: 150px;
-	margin-left: 100px;
 }
 .photo img{
 	display: block;
@@ -102,14 +101,14 @@ html,body{
 	top: 100%;
 }
 .projects-list{
-	width: 100%;
-	height: 95px;
+	width: 540px;
 	overflow: hidden;
-	padding: 15px;
+	margin: 10px;
 }
 .projects-list h4{
 	font-size: 20px;
 	font-weight: normal;
+	color: #4F94CD;
 }
 .projects-list .time-tag{
 	color: #BEBEBE;
@@ -122,6 +121,13 @@ html,body{
 }
 .projects-list .description{
 	color: #BEBEBE;
+}
+.projects-list .description em{
+	font-weight: normal;
+	color: #FFC1C1;
+	font-size: 14px;
+	width: auto;
+	padding: none;
 }
 .slider{
 	position: absolute;
