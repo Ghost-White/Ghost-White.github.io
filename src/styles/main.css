@@ -97,8 +97,14 @@ html,body{
 .IT-skills{
 	top: 100%;
 }
+.IT-skills .info li:nth-child(2n){
+	color: #36648B;
+}
 .projects{
 	top: 100%;
+}
+.projects .photo{
+	margin-left: 50px;
 }
 .projects-list{
 	width: 540px;
@@ -124,15 +130,13 @@ html,body{
 }
 .projects-list .description em{
 	font-weight: normal;
-	color: #FFC1C1;
-	font-size: 14px;
-	width: auto;
-	padding: none;
+	color: #EE3B3B;
+	text-orientation: normal;
 }
 .slider{
 	position: absolute;
 	top: 75%;
-	left: 46%;
+	right: 20px;
 	width: 200px;
 	height: 170px;
 	cursor: pointer;
@@ -146,6 +150,7 @@ html,body{
 	height: 100%;
 	width: 100%;
 	top: 0;
+	overflow: hidden;
 }
 
 .top-half{

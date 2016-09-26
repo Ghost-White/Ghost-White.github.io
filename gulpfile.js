@@ -39,9 +39,9 @@ gulp.task('styles', function() {
 
 //js校验、合并、压缩
 gulp.task('scripts', function() {
-  return gulp.src('src/scripts/**/*.js')
-    /*.pipe(jshint('.jshintrc'))*/
-    /*.pipe(jshint.reporter('default'))*/
+  return gulp.src(['src/scripts/**/*.js','!src/scripts/lib/*.js'])
+    .pipe(jshint('.jshintrc'))
+    .pipe(jshint.reporter('default'))
     /*.pipe(concat('main.js'))*/
     /*.pipe(gulp.dest('dist/assets/js'))*/
     .pipe(rename({suffix: '.min'}))
@@ -49,6 +49,15 @@ gulp.task('scripts', function() {
     .pipe(gulp.dest('dist/assets/js'))
    // .pipe(notify({ message: 'Scripts task complete' }));
 });
+
+gulp.task('jslib',function(){
+  return gulp.src('src/scripts/lib/*.js')
+    .pipe(gulp.dest('dist/assets/js'));
+})
+
+gulp.task('js',function(){
+  gulp.start('scripts','jslib');
+})
 
 //图片压缩
 gulp.task('images', function() {
@@ -66,7 +75,7 @@ gulp.task('clean', function(cb) {
 
 //设置默认任务
 gulp.task('default', ['clean'], function() {	//要clean执行完成才能执行后面的三个任务
-    gulp.start('styles', 'scripts', 'images');
+    gulp.start('styles', 'js', 'images');
 });
 
 
@@ -74,7 +83,7 @@ gulp.task('default', ['clean'], function() {	//要clean执行完成才能执行�
 gulp.task('watch', function() {
   //当.sass、.js和图片修改时将执行对应的任务。
   gulp.watch('src/styles/**/*.scss', ['styles']);
-  gulp.watch('src/scripts/**/*.js', ['scripts']);
+  gulp.watch('src/scripts/**/*.js', ['js']);
   gulp.watch('src/images/**/*', ['images']);
   // Create LiveReload server
   livereload.listen();
@@ -82,8 +91,7 @@ gulp.task('watch', function() {
   gulp.watch(['dist/**']).on('change', livereload.changed);
 });
 
-
 //测试
 gulp.task('test',function(){
-  gulp.start('styles', 'scripts', 'images','f-i');
+  gulp.start('styles', 'js', 'images','f-i');
 });
