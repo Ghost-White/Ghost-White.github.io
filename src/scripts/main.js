@@ -196,7 +196,7 @@ $(function(){
 		balls_action(balls_1,1);
 		balls_action(balls_2,2);
 		setTimeout(keydown_event,3200);		//防止多次按键
-		setTimeout(slider_event,3200);		//防止多次点击螃蟹
+		setTimeout(slider_event,3400);		//防止多次点击螃蟹
 	};
 	var keydown_event = function(){
 		$(document).keydown(slider_fun);

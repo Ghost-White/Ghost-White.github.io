@@ -159,7 +159,7 @@ html,body{
 	position: absolute;
 	top: 0;
 	background-color: #BBFFFF;
-	background: url("../img/bk-1.jpg");
+	background: url("../img/bk2-1.jpg");
 	background-position: bottom;
 	overflow: hidden;
 }
@@ -170,13 +170,13 @@ html,body{
 	position: absolute;
 	top: 50%;
 	background-color: #668B8B;
-	background: url("../img/bk-2.jpg");
+	background: url("../img/bk2-2.jpg");
 	background-position: top;
 }
 
 .bottom-half-top{
 	position: absolute;
-	top: 0;
+	top: -2px;
 	height: 100px;
 	width: 100%;
 	background-color: #BBFFFF;
@@ -240,7 +240,7 @@ html,body{
 }
 .portrait-cover span{
 	display: block;
-	color: #708090;
+	color: #363636;
 	padding-top: 100px;
 }
 /*entry-end*/
