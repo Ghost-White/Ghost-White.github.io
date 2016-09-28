@@ -3,16 +3,17 @@ $(function(){
 		
 	//入口滑窗
 	var scroll_1 = function(){
+		$(".container").removeClass("hide");
+
 		$(".top-half").animate({
 			top:"-50%"
 		},1500,function(){
-			$(".top-half").addClass("hide");
 			$(".entry").addClass("hide");
 		});
+
 		$(".bottom-half").animate({
 			top:"120%"
 		},1500,function(){
-			$(".bottom-half").addClass("hide");
 		});
 	};
 
