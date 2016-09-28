@@ -158,7 +158,7 @@ html,body{
 	width: 100%;
 	position: absolute;
 	top: 0;
-	background-color: #BBFFFF;
+	background-color: white;
 	background: url("../img/bk2-1.jpg");
 	background-position: bottom;
 	overflow: hidden;
@@ -170,6 +170,7 @@ html,body{
 	position: absolute;
 	top: 50%;
 	background-color: #668B8B;
+	background-color: white;
 	background: url("../img/bk2-2.jpg");
 	background-position: top;
 }
