@@ -39,7 +39,7 @@ gulp.task('styles', function() {
 
 //js校验、合并、压缩
 gulp.task('scripts', function() {
-  return gulp.src(['src/scripts/**/*.js','!src/scripts/lib/*.js'])
+  return gulp.src(['src/scripts/**/*.js','!src/scripts/lib/*.js','!src/scripts/es6/*.js'])
     .pipe(jshint('.jshintrc'))
     .pipe(jshint.reporter('default'))
     /*.pipe(concat('main.js'))*/

@@ -1,0 +1,19 @@
+.main{
+	position: relative;
+}
+.board{
+	width: 400px;
+	height: 600px;
+	border:2px solid #ec9283;
+	margin: 30px 0 0 300px;
+}
+.control{
+	position: absolute;
+}
+.board-cell{
+	width: 36px;
+	height: 36px;
+	background: #ec9283;
+	border:2px solid #fff;
+	float: left;
+}
