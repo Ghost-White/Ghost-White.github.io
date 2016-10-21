@@ -31,6 +31,10 @@
 	background: #fff;
 	border:2px solid #fbe4e0;
 }
+/*.board-cell-1{
+	background: #ec9283;
+	border:2px solid #fbe4e0;
+}*/
 .fall_2_3{
 	width: 120px;height:80px;
 }
