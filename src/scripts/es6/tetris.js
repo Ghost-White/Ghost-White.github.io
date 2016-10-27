@@ -446,8 +446,9 @@ $(function(){
 					'left':`${l-40}px`
 				},100,function(){
 					cb();
+					fall_coord = [x,y-1];
 				});			
-				fall_coord = [x,y-1];
+				
 			}
 		}else if(direction==='right' && y+col<10){
 			let coord = [x,y+1];
@@ -459,8 +460,9 @@ $(function(){
 					'left':`${l+40}px`
 				},100,function(){
 					cb();
+					fall_coord = [x,y+1];
 				});
-				fall_coord = [x,y+1];
+				
 			}
 		}else{
 			cb();
@@ -495,13 +497,11 @@ $(function(){
 			}else if(event.keyCode === 39){
 				fall_move($(".fall"),'right',addEvent);
 			}else if(event.keyCode === 38){
-				console.log('change');
 				fall_trans(fall_active);
 			}
 
 			if(event_flag === 0){
 				if(event.keyCode === 40){
-					console.log('down');
 					fast_down();
 				}else if(event.keyCode === 32){	/*空格暂停*/
 					clearInterval(timer);
@@ -512,6 +512,101 @@ $(function(){
 			}else{
 				return;
 			}	
+		});
+
+		$(document).on('click','.move_left',function(){
+			fall_move($(".fall"),'left',addEvent);
+		}).on('click','.move_right',function(){
+			fall_move($(".fall"),'right',addEvent);
+		}).on('click','.move_change',function(){
+			fall_trans(fall_active);
+		}).on('click','.move_down',function(){
+			if(event_flag === 0){
+				fast_down();
+			}
+		}).on('click','.pause_start',function(){
+			if(event_flag === 0){
+				if($(".stop_restart span").html() === '0'){				/*停止状态--点击无效*/
+					$(this).find("img").eq(0).css({
+						"display":"none",
+					});
+					$(this).find("img").eq(1).css({
+						"display":"none",
+					});	
+					$(this).find("img").eq(2).css({
+						"display":"block",
+					});												
+				}else{													/*运行中*/
+					$(this).find("img").eq(2).css({
+						"display":"none",
+					});													
+					if($(this).find("span").html() === '0'){			/*暂停状态--运行*/												
+						$(this).find("img").eq(0).css({
+							"display":"none",
+						});
+						$(this).find("img").eq(1).css({
+							"display":"block",
+						});
+						clearInterval(timer);
+						fall_auto($(".fall"));
+						$(this).find("span").html('1');
+					}else{
+						$(this).find("img").eq(0).css({
+							"display":"block",
+						});												/*运行中--暂停*/
+						$(this).find("img").eq(1).css({
+							"display":"none",
+						});
+						$(this).find("span").html('0');
+						clearInterval(timer);
+					}
+				}
+				
+			}
+		}).on('click','.stop_restart',function(){
+			if(event_flag === 0){
+				if($(this).find("span").html() === '0'){		/*停止状态--运行*/
+					$(this).find("img").eq(0).css({
+						"display":"none",
+					});
+					$(this).find("img").eq(1).css({
+						"display":"block",
+					});										
+					$(this).find("span").html('1');
+					/*同时改变暂停--运行*/
+					$(".pause_start img").eq(0).css({
+						"display":"none",
+					});
+					$(".pause_start img").eq(1).css({
+						"display":"block",
+					});
+					$(".pause_start img").eq(2).css({
+						"display":"none",
+					});
+					$(".pause_start span").html("1");	/*暂停--运行*/
+					game_restart();
+
+				}else{					
+					$(this).find("img").eq(0).css({
+						"display":"block",
+					});
+					$(this).find("img").eq(1).css({
+						"display":"none",
+					});
+					$(this).find("span").html('0');
+					/*同时改变暂停*/
+					$(".pause_start img").eq(0).css({
+						"display":"none",
+					});
+					$(".pause_start img").eq(1).css({
+						"display":"none",
+					});
+					$(".pause_start img").eq(2).css({
+						"display":"block",
+					});
+					game_stop();
+				}
+			}
 		});
 	}
 
@@ -524,9 +619,14 @@ $(function(){
 		board_init();
 		fall_init();
 		fall_auto($(".fall"));
-		addEvent();
 	}
 
-	game_restart();
+	let game_stop = function(){
+		board_init();
+		fall_init();
+		clearInterval(timer);
+	}
+	board_init();
+	addEvent();
 
 })

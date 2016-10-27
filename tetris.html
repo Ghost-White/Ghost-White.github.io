@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="utf-8">
 	<title>tetris</title>
 	<link rel="stylesheet" type="text/css" href="dist/assets/css/common.min.css">
 	<link rel="stylesheet" type="text/css" href="dist/assets/css/tetris.min.css">
 	<script type="text/javascript" src="dist/assets/js/jquery.min.js"></script>
 </head>
 <body>
-<h1 class="hide">ing...</h1>
+<h1 class="hide">Game--tetris by XuQiang</h1>
 <div class="main">
 	<div class="board">
 		<ul></ul>
@@ -15,9 +16,26 @@
 	</div>
 	
 		
-	</div>
 	<div class="control">
-		
+		<div class="fl pause_start">
+			<span class="hide">0</span>	<!-- 0=暂停中=pause.jpg -->		
+			<img class="hide" src="dist/assets/img/pause.jpg">
+			<img class="hide" src="dist/assets/img/start.jpg">
+			<img src="dist/assets/img/unable.jpg">
+			<div>继续/暂停</div>
+		</div>
+		<div class="move">
+			<div class="move_left">←</div>
+			<div class="move_right">→</div>
+			<div class="move_down">↓</div> 
+			<div class="move_change">换</div>
+		</div>
+		<div class="stop_restart">
+			<span class="hide">0</span>			
+			<img src="dist/assets/img/game_off.jpg">
+			<img class="hide" src="dist/assets/img/game_on.jpg">
+			<div>开始/停止</div>
+		</div>
 	</div>
 </div>
 
