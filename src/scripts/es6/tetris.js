@@ -290,14 +290,13 @@ $(function(){
 			t = 0;
 		}
 		t = Number.parseFloat(/\-*[0-9]+/g.exec(t)[0]);
-		event_flag = 1;
+//		event_flag = 1;
+		let [x,y] = fall_coord;			/*动画前先改变数据，使得动画过程中触发其他时间时能获取到正确数据*/
+		fall_coord = [x+1,y];		
 		$(obj).animate({
 			'bottom':`${t-40}px`
 		},200,function(){
-			let [x,y] = fall_coord;
-			fall_coord = [x+1,y];
-			t = $(obj).css('bottom');
-			event_flag = 0;
+//			event_flag = 0;
 		});
 			
 	}
@@ -439,14 +438,12 @@ $(function(){
 		if(direction==='left' && y-1>-1){
 			let coord = [x,y-1];
 			if(test_collision(board,mat,coord)===true){
-				cb();
 				return;
 			}else{
+				fall_coord = [x,y-1];
 				$(obj).animate({
 					'left':`${l-40}px`
-				},100,function(){
-					cb();
-					fall_coord = [x,y-1];
+				},100,function(){					
 				});			
 				
 			}
@@ -456,11 +453,10 @@ $(function(){
 				cb();
 				return;
 			}else{
+				fall_coord = [x,y+1];
 				$(obj).animate({
 					'left':`${l+40}px`
 				},100,function(){
-					cb();
-					fall_coord = [x,y+1];
 				});
 				
 			}
@@ -626,7 +622,9 @@ $(function(){
 		fall_init();
 		clearInterval(timer);
 	}
-	board_init();
-	addEvent();
+	
+	let game_init = function(){
+		board_init();
+	}
 
 })
