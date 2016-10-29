@@ -305,20 +305,20 @@ $(function () {
 			t = 0;
 		}
 		t = Number.parseFloat(/\-*[0-9]+/g.exec(t)[0]);
-		event_flag = 1;
+
+		var _fall_coord = fall_coord,
+		    _fall_coord2 = _slicedToArray(_fall_coord, 2),
+		    x = _fall_coord2[0],
+		    y = _fall_coord2[1]; /*动画前先改变数据，使得动画过程中触发其他时间时能获取到正确数据*/
+
+
+		fall_coord = [x + 1, y];
+		console.log(timer);
 		$(obj).animate({
 			'bottom': t - 40 + 'px'
 		}, 200, function () {
-			var _fall_coord = fall_coord;
-
-			var _fall_coord2 = _slicedToArray(_fall_coord, 2);
-
-			var x = _fall_coord2[0];
-			var y = _fall_coord2[1];
-
-			fall_coord = [x + 1, y];
-			t = $(obj).css('bottom');
-			event_flag = 0;
+			console.log("下落完成");
+			console.log(timer);
 		});
 	};
 
@@ -328,15 +328,17 @@ $(function () {
 	var fall_auto = function fall_auto(obj) {
 		/*setInterval在回调函数有参数时要写在function里面*/
 		timer = setInterval(function () {
-			var _fall_coord3 = fall_coord;
+			console.log(this);
 
-			var _fall_coord4 = _slicedToArray(_fall_coord3, 2);
-
-			var x = _fall_coord4[0];
-			var y = _fall_coord4[1];
+			var _fall_coord3 = fall_coord,
+			    _fall_coord4 = _slicedToArray(_fall_coord3, 2),
+			    x = _fall_coord4[0],
+			    y = _fall_coord4[1];
 			/*碰撞预测*/
 
+
 			var coord = [x + 1, y];
+			console.log("开始下落");
 			if (test_collision(board, mat, coord) === false && x < 11) {
 				/*防止x越界*/
 				fall_step(obj);
@@ -349,14 +351,13 @@ $(function () {
 
 	/*碰撞检测*/
 	var test_collision = function test_collision(board, mat, coord) {
-		var board_temp = copy_arr(board);
+		var board_temp = copy_arr(board),
+		    _coord = _slicedToArray(coord, 2),
+		    x = _coord[0],
+		    y = _coord[1],
+		    row = mat.length,
+		    col = mat[0].length;
 
-		var _coord = _slicedToArray(coord, 2);
-
-		var x = _coord[0];
-		var y = _coord[1];
-		var row = mat.length;
-		var col = mat[0].length;
 		if (x < 12 && y + col - 1 < 10 && y > -1) {
 			/*边界限制*/
 			for (var i = 0; i < row; i++) {
@@ -419,10 +420,9 @@ $(function () {
 		var row = mat.length,
 		    col = mat[0].length;
 
-		var _coord2 = _slicedToArray(coord, 2);
-
-		var x = _coord2[0];
-		var y = _coord2[1];
+		var _coord2 = _slicedToArray(coord, 2),
+		    x = _coord2[0],
+		    y = _coord2[1];
 
 		if (y + col - 1 < 10 && x < 12) {
 			return false;
@@ -464,14 +464,11 @@ $(function () {
 	};
 
 	/*积木左右平移*/
-	var fall_move = function fall_move(obj, direction, cb) {
-		$(document).off('keydown', 'body');
-		var _fall_coord5 = fall_coord;
-
-		var _fall_coord6 = _slicedToArray(_fall_coord5, 2);
-
-		var x = _fall_coord6[0];
-		var y = _fall_coord6[1];
+	var fall_move = function fall_move(obj, direction) {
+		var _fall_coord5 = fall_coord,
+		    _fall_coord6 = _slicedToArray(_fall_coord5, 2),
+		    x = _fall_coord6[0],
+		    y = _fall_coord6[1];
 
 		var l = $(obj).css('left');
 		if (l === null || l === '' || l === 'none' || l === undefined) {
@@ -482,46 +479,37 @@ $(function () {
 		if (direction === 'left' && y - 1 > -1) {
 			var coord = [x, y - 1];
 			if (test_collision(board, mat, coord) === true) {
-				cb();
 				return;
 			} else {
+				fall_coord = [x, y - 1];
 				$(obj).animate({
 					'left': l - 40 + 'px'
-				}, 100, function () {
-					cb();
-					fall_coord = [x, y - 1];
-				});
+				}, 100, function () {});
 			}
 		} else if (direction === 'right' && y + col < 10) {
 			var _coord3 = [x, y + 1];
 			if (test_collision(board, mat, _coord3) === true) {
-				cb();
 				return;
 			} else {
+				fall_coord = [x, y + 1];
 				$(obj).animate({
 					'left': l + 40 + 'px'
-				}, 100, function () {
-					cb();
-					fall_coord = [x, y + 1];
-				});
+				}, 100, function () {});
 			}
 		} else {
-			cb();
 			return;
 		}
 	};
 
 	/*快速坠落*/
 	var fast_down = function fast_down() {
-		clearInterval(timer);
-		/*如果不清除，在fast_down执行期间触发interval的话，
-  interval加入等待队列，因为数据暂留在interval中，会导致错误*/
-		var _fall_coord7 = fall_coord;
+		$(".fall").stop();
+		/*这一步很重要！！否则会出现在下落短暂时间内点击快速下落，会出现样式初始化后被改变的情况*/
 
-		var _fall_coord8 = _slicedToArray(_fall_coord7, 2);
-
-		var x = _fall_coord8[0];
-		var y = _fall_coord8[1];
+		var _fall_coord7 = fall_coord,
+		    _fall_coord8 = _slicedToArray(_fall_coord7, 2),
+		    x = _fall_coord8[0],
+		    y = _fall_coord8[1];
 
 		var coord = [x + 1, y];
 		var steps = 0;
@@ -539,136 +527,88 @@ $(function () {
 		}
 		board = update_board(board, mat, fall_coord);
 		fall_init();
-		fall_auto($(".fall"));
 	};
 
 	/*事件监听*/
 	var addEvent = function addEvent() {
 		$(document).on('keydown', 'body', function (event) {
 			if (event.keyCode === 37) {
-				fall_move($(".fall"), 'left', addEvent);
+				fall_move($(".fall"), 'left'); /*左*/
 			} else if (event.keyCode === 39) {
-				fall_move($(".fall"), 'right', addEvent);
+				fall_move($(".fall"), 'right'); /*右*/
 			} else if (event.keyCode === 38) {
-				fall_trans(fall_active);
-			}
-
-			if (event_flag === 0) {
-				if (event.keyCode === 40) {
-					fast_down();
-				} else if (event.keyCode === 32) {
-					/*空格暂停*/
-					clearInterval(timer);
-				} else if (event.keyCode === 13) {
-					/*enter 继续*/
-					clearInterval(timer);
-					fall_auto($(".fall"));
-				}
-			} else {
-				return;
+				fall_trans(fall_active); /*换*/
+			} else if (event.keyCode === 40) {
+				fast_down(); /*下*/
+			} else if (event.keyCode === 32) {
+				clearInterval(timer); /*空格暂停*/
+			} else if (event.keyCode === 13) {
+				clearInterval(timer); /*enter 继续*/
+				fall_auto($(".fall"));
 			}
 		});
 
 		$(document).on('click', '.move_left', function () {
-			fall_move($(".fall"), 'left', addEvent);
+			fall_move($(".fall"), 'left', addEvent); /*左*/
 		}).on('click', '.move_right', function () {
-			fall_move($(".fall"), 'right', addEvent);
+			fall_move($(".fall"), 'right', addEvent); /*右*/
 		}).on('click', '.move_change', function () {
-			fall_trans(fall_active);
+			fall_trans(fall_active); /*换*/
 		}).on('click', '.move_down', function () {
 			if (event_flag === 0) {
+				/*下*/
 				fast_down();
 			}
 		}).on('click', '.pause_start', function () {
-			if (event_flag === 0) {
-				if ($(".stop_restart span").html() === '0') {
-					/*停止状态--点击无效*/
-					$(this).find("img").eq(0).css({
-						"display": "none"
-					});
-					$(this).find("img").eq(1).css({
-						"display": "none"
-					});
-					$(this).find("img").eq(2).css({
-						"display": "block"
-					});
-				} else {
-					/*运行中*/
-					$(this).find("img").eq(2).css({
-						"display": "none"
-					});
-					if ($(this).find("span").html() === '0') {
-						/*暂停状态--运行*/
-						$(this).find("img").eq(0).css({
-							"display": "none"
-						});
-						$(this).find("img").eq(1).css({
-							"display": "block"
-						});
-						clearInterval(timer);
-						fall_auto($(".fall"));
-						$(this).find("span").html('1');
-					} else {
-						$(this).find("img").eq(0).css({
-							"display": "block"
-						}); /*运行中--暂停*/
-						$(this).find("img").eq(1).css({
-							"display": "none"
-						});
-						$(this).find("span").html('0');
-						clearInterval(timer);
-					}
-				}
-			}
-		}).on('click', '.stop_restart', function () {
-			if (event_flag === 0) {
+			if ($(".stop_restart span").html() === '0') {
+				/*停止状态--点击无效*/
+				$(this).find("img").eq(0).css({
+					"display": "none"
+				});
+				$(this).find("img").eq(1).css({
+					"display": "none"
+				});
+				$(this).find("img").eq(2).css({
+					"display": "block"
+				});
+			} else {
+				/*运行中*/
+				$(this).find("img").eq(2).css({
+					"display": "none"
+				});
 				if ($(this).find("span").html() === '0') {
-					/*停止状态--运行*/
+					/*暂停状态--运行*/
 					$(this).find("img").eq(0).css({
 						"display": "none"
 					});
 					$(this).find("img").eq(1).css({
 						"display": "block"
 					});
+					clearInterval(timer);
+					fall_auto($(".fall"));
 					$(this).find("span").html('1');
-					/*同时改变暂停--运行*/
-					$(".pause_start img").eq(0).css({
-						"display": "none"
-					});
-					$(".pause_start img").eq(1).css({
-						"display": "block"
-					});
-					$(".pause_start img").eq(2).css({
-						"display": "none"
-					});
-					$(".pause_start span").html("1"); /*暂停--运行*/
-					game_restart();
 				} else {
 					$(this).find("img").eq(0).css({
 						"display": "block"
-					});
+					}); /*运行中--暂停*/
 					$(this).find("img").eq(1).css({
 						"display": "none"
 					});
 					$(this).find("span").html('0');
-					/*同时改变暂停*/
-					$(".pause_start img").eq(0).css({
-						"display": "none"
-					});
-					$(".pause_start img").eq(1).css({
-						"display": "none"
-					});
-					$(".pause_start img").eq(2).css({
-						"display": "block"
-					});
-					game_stop();
+					clearInterval(timer);
 				}
 			}
 		});
 	};
 
+	/*关闭具体操作监听*/
 	var offEvent = function offEvent() {
 		$(document).off("keydown", "body");
+		$(document).off('click', '.move_left');
+		$(document).off('click', '.move_right');
+		$(document).off('click', '.move_change');
+		$(document).off('click', '.move_down');
+		$(document).off('click', '.pause_start');
 	};
 
 	/*重新启动游戏=开始游戏*/
@@ -683,6 +623,60 @@ $(function () {
 		fall_init();
 		clearInterval(timer);
 	};
-	board_init();
-	addEvent();
+
+	var game_init = function game_init() {
+		$(document).on("click", ".stop_restart", function () {
+			if ($(this).find("span").html() === '0') {
+				/*停止状态--运行*/
+				$(this).find("img").eq(0).css({
+					"display": "none"
+				});
+				$(this).find("img").eq(1).css({
+					"display": "block"
+				});
+				$(this).find("span").html('1');
+
+				/*改变暂停显示*/
+				$(".pause_start img").eq(0).css({
+					"display": "none"
+				});
+				$(".pause_start img").eq(1).css({
+					"display": "block"
+				});
+				$(".pause_start img").eq(2).css({
+					"display": "none"
+				});
+				$(".pause_start span").html("1"); /*暂停--运行*/
+
+				game_restart();
+				/*添加游戏具体操作监听*/
+				addEvent();
+			} else {
+				$(this).find("img").eq(0).css({
+					"display": "block"
+				});
+				$(this).find("img").eq(1).css({
+					"display": "none"
+				});
+				$(this).find("span").html('0');
+
+				/*改变暂停显示*/
+				$(".pause_start img").eq(0).css({
+					"display": "none"
+				});
+				$(".pause_start img").eq(1).css({
+					"display": "none"
+				});
+				$(".pause_start img").eq(2).css({
+					"display": "block"
+				});
+
+				/*关闭游戏具体操作监听*/
+				offEvent();
+				game_stop();
+			}
+		});
+	};
+
+	game_init();
 });
