@@ -264,7 +264,6 @@ $(function(){
 	/*初始化降落积木 数据+样式*/
 	let fall_init = function(){
 		if(board[0][3] !== 0 || board[0][4] !== 0 || board[0][5]!==0){
-			console.log("off!!");
 			clearInterval(timer);
 			offEvent();
 			return;
@@ -292,12 +291,9 @@ $(function(){
 		t = Number.parseFloat(/\-*[0-9]+/g.exec(t)[0]);
 		let [x,y] = fall_coord;			/*动画前先改变数据，使得动画过程中触发其他时间时能获取到正确数据*/
 		fall_coord = [x+1,y];	
-		console.log(timer);	
 		$(obj).animate({
 			'bottom':`${t-40}px`
 		},200,function(){
-			console.log("下落完成");
-			console.log(timer);
 		});
 	}
 
@@ -306,12 +302,10 @@ $(function(){
 	let over_flag = 0;
 	let fall_auto = function(obj){
 		/*setInterval在回调函数有参数时要写在function里面*/		
-		timer = setInterval(function(){	
-			console.log(this);		
+		timer = setInterval(function(){		
 			let [x,y] = fall_coord;
 			/*碰撞预测*/
-			let coord = [x+1,y]; 
-			console.log("开始下落");			
+			let coord = [x+1,y]; 		
 			if(test_collision(board,mat,coord)===false && x < 11){ /*防止x越界*/
 				fall_step(obj);				
 			}else{
@@ -378,7 +372,44 @@ $(function(){
 				}
 			}
 		}
+
 		update_board_style();
+
+		/*去除最后一行，新增第一行*/
+		let fresh_board_style = function(){
+			$(".board ul li").eq(11).remove();
+			let row ='<li>';
+			for(let i = 0;i<board[0].length;i++){
+				row += '<div class="board-cell-init"></div>';
+			}
+			row　+= '</li>'
+			$(".board ul").prepend(row);
+		}		
+		
+		let check_update = function(){
+			let update_flag = 0;
+			let b_row = board_new.length,
+				b_col = board_new[0].length;
+			for(let i=0;i<b_col;i++){
+				if(board_new[b_row-1][i]!==0){
+					update_flag = 1;
+				}else{
+					update_flag = 0;
+					return false;
+				}
+			}
+			if(update_flag === 1){
+				for(let i = b_row-1;i>0;i--){
+					board_new[i] = board_new[i-1];
+				}
+				board_new[0] = [0,0,0,0,0,0,0,0,0,0];
+				fresh_board_style();
+			}
+			return true;
+		}
+
+		while(check_update()===true){}
+
 		return board_new;
 	}
 

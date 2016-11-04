@@ -279,7 +279,6 @@ $(function () {
 	/*初始化降落积木 数据+样式*/
 	var fall_init = function fall_init() {
 		if (board[0][3] !== 0 || board[0][4] !== 0 || board[0][5] !== 0) {
-			console.log("off!!");
 			clearInterval(timer);
 			offEvent();
 			return;
@@ -313,13 +312,9 @@ $(function () {
 		var y = _fall_coord2[1]; /*动画前先改变数据，使得动画过程中触发其他时间时能获取到正确数据*/
 
 		fall_coord = [x + 1, y];
-		console.log(timer);
 		$(obj).animate({
 			'bottom': t - 40 + 'px'
-		}, 200, function () {
-			console.log("下落完成");
-			console.log(timer);
-		});
+		}, 200, function () {});
 	};
 
 	/*积木自动降落*/
@@ -328,7 +323,6 @@ $(function () {
 	var fall_auto = function fall_auto(obj) {
 		/*setInterval在回调函数有参数时要写在function里面*/
 		timer = setInterval(function () {
-			console.log(this);
 			var _fall_coord3 = fall_coord;
 
 			var _fall_coord4 = _slicedToArray(_fall_coord3, 2);
@@ -338,7 +332,6 @@ $(function () {
 			/*碰撞预测*/
 
 			var coord = [x + 1, y];
-			console.log("开始下落");
 			if (test_collision(board, mat, coord) === false && x < 11) {
 				/*防止x越界*/
 				fall_step(obj);
@@ -412,7 +405,44 @@ $(function () {
 				}
 			}
 		};
+
 		update_board_style();
+
+		/*去除最后一行，新增第一行*/
+		var fresh_board_style = function fresh_board_style() {
+			$(".board ul li").eq(11).remove();
+			var row = '<li>';
+			for (var _i4 = 0; _i4 < board[0].length; _i4++) {
+				row += '<div class="board-cell-init"></div>';
+			}
+			row += '</li>';
+			$(".board ul").prepend(row);
+		};
+
+		var check_update = function check_update() {
+			var update_flag = 0;
+			var b_row = board_new.length,
+			    b_col = board_new[0].length;
+			for (var _i5 = 0; _i5 < b_col; _i5++) {
+				if (board_new[b_row - 1][_i5] !== 0) {
+					update_flag = 1;
+				} else {
+					update_flag = 0;
+					return false;
+				}
+			}
+			if (update_flag === 1) {
+				for (var _i6 = b_row - 1; _i6 > 0; _i6--) {
+					board_new[_i6] = board_new[_i6 - 1];
+				}
+				board_new[0] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+				fresh_board_style();
+			}
+			return true;
+		};
+
+		while (check_update() === true) {}
+
 		return board_new;
 	};
 
