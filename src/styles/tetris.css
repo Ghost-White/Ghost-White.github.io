@@ -69,6 +69,9 @@
 	overflow: hidden;
 	cursor: move;
 	color: white;
+	-moz-user-select:none;
+	-webkit-user-select:none;
+	user-select:none;  
 }
 .pause_start,.stop_restart{
 	margin: 60px 20px;
