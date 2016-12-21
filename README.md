@@ -2,7 +2,7 @@
 
 地址：https://ghost-white.github.io/
 
-Tetris技术难点：
+Tetris 俄罗斯方块技术难点：
 
 1、碰撞检测&边界检测
 
