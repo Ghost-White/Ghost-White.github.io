@@ -281,6 +281,7 @@ $(function () {
 		if (board[0][3] !== 0 || board[0][4] !== 0 || board[0][5] !== 0) {
 			clearInterval(timer);
 			offEvent();
+			$(".score").removeClass('hide');
 			return;
 		} else {
 			fall_coord = [-1, 3]; /*重置降落坐标*/
@@ -304,12 +305,12 @@ $(function () {
 			t = 0;
 		}
 		t = Number.parseFloat(/\-*[0-9]+/g.exec(t)[0]);
-		var _fall_coord = fall_coord;
 
-		var _fall_coord2 = _slicedToArray(_fall_coord, 2);
+		var _fall_coord = fall_coord,
+		    _fall_coord2 = _slicedToArray(_fall_coord, 2),
+		    x = _fall_coord2[0],
+		    y = _fall_coord2[1]; /*动画前先改变数据，使得动画过程中触发其他时间时能获取到正确数据*/
 
-		var x = _fall_coord2[0];
-		var y = _fall_coord2[1]; /*动画前先改变数据，使得动画过程中触发其他时间时能获取到正确数据*/
 
 		fall_coord = [x + 1, y];
 		$(obj).animate({
@@ -323,13 +324,12 @@ $(function () {
 	var fall_auto = function fall_auto(obj) {
 		/*setInterval在回调函数有参数时要写在function里面*/
 		timer = setInterval(function () {
-			var _fall_coord3 = fall_coord;
-
-			var _fall_coord4 = _slicedToArray(_fall_coord3, 2);
-
-			var x = _fall_coord4[0];
-			var y = _fall_coord4[1];
+			var _fall_coord3 = fall_coord,
+			    _fall_coord4 = _slicedToArray(_fall_coord3, 2),
+			    x = _fall_coord4[0],
+			    y = _fall_coord4[1];
 			/*碰撞预测*/
+
 
 			var coord = [x + 1, y];
 			if (test_collision(board, mat, coord) === false && x < 11) {
@@ -344,14 +344,13 @@ $(function () {
 
 	/*碰撞检测*/
 	var test_collision = function test_collision(board, mat, coord) {
-		var board_temp = copy_arr(board);
+		var board_temp = copy_arr(board),
+		    _coord = _slicedToArray(coord, 2),
+		    x = _coord[0],
+		    y = _coord[1],
+		    row = mat.length,
+		    col = mat[0].length;
 
-		var _coord = _slicedToArray(coord, 2);
-
-		var x = _coord[0];
-		var y = _coord[1];
-		var row = mat.length;
-		var col = mat[0].length;
 		if (x < 12 && y + col - 1 < 10 && y > -1) {
 			/*边界限制*/
 			for (var i = 0; i < row; i++) {
@@ -408,7 +407,7 @@ $(function () {
 
 		update_board_style();
 
-		/*去除最后一行，新增第一行*/
+		/*更新棋盘样式：去除最后一行，新增第一行*/
 		var fresh_board_style = function fresh_board_style() {
 			$(".board ul li").eq(11).remove();
 			var row = '<li>';
@@ -418,7 +417,7 @@ $(function () {
 			row += '</li>';
 			$(".board ul").prepend(row);
 		};
-
+		/*更新棋盘 数据+样式*/
 		var check_update = function check_update() {
 			var update_flag = 0;
 			var b_row = board_new.length,
@@ -451,10 +450,9 @@ $(function () {
 		var row = mat.length,
 		    col = mat[0].length;
 
-		var _coord2 = _slicedToArray(coord, 2);
-
-		var x = _coord2[0];
-		var y = _coord2[1];
+		var _coord2 = _slicedToArray(coord, 2),
+		    x = _coord2[0],
+		    y = _coord2[1];
 
 		if (y + col - 1 < 10 && x < 12) {
 			return false;
@@ -497,12 +495,10 @@ $(function () {
 
 	/*积木左右平移*/
 	var fall_move = function fall_move(obj, direction) {
-		var _fall_coord5 = fall_coord;
-
-		var _fall_coord6 = _slicedToArray(_fall_coord5, 2);
-
-		var x = _fall_coord6[0];
-		var y = _fall_coord6[1];
+		var _fall_coord5 = fall_coord,
+		    _fall_coord6 = _slicedToArray(_fall_coord5, 2),
+		    x = _fall_coord6[0],
+		    y = _fall_coord6[1];
 
 		var l = $(obj).css('left');
 		if (l === null || l === '' || l === 'none' || l === undefined) {
@@ -539,12 +535,11 @@ $(function () {
 	var fast_down = function fast_down() {
 		$(".fall").stop();
 		/*这一步很重要！！否则会出现在下落短暂时间内点击快速下落，会出现样式初始化后被改变的情况*/
-		var _fall_coord7 = fall_coord;
 
-		var _fall_coord8 = _slicedToArray(_fall_coord7, 2);
-
-		var x = _fall_coord8[0];
-		var y = _fall_coord8[1];
+		var _fall_coord7 = fall_coord,
+		    _fall_coord8 = _slicedToArray(_fall_coord7, 2),
+		    x = _fall_coord8[0],
+		    y = _fall_coord8[1];
 
 		var coord = [x + 1, y];
 		var steps = 0;
@@ -651,6 +646,7 @@ $(function () {
 		board_init();
 		fall_init();
 		fall_auto($(".fall"));
+		$(".score").addClass('hide');
 	};
 
 	var game_stop = function game_stop() {

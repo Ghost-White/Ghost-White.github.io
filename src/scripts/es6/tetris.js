@@ -266,6 +266,7 @@ $(function(){
 		if(board[0][3] !== 0 || board[0][4] !== 0 || board[0][5]!==0){
 			clearInterval(timer);
 			offEvent();
+			$(".score").removeClass('hide');
 			return;
 		}else{
 			fall_coord = [-1,3];					/*重置降落坐标*/
@@ -375,7 +376,7 @@ $(function(){
 
 		update_board_style();
 
-		/*去除最后一行，新增第一行*/
+		/*更新棋盘样式：去除最后一行，新增第一行*/
 		let fresh_board_style = function(){
 			$(".board ul li").eq(11).remove();
 			let row ='<li>';
@@ -385,7 +386,7 @@ $(function(){
 			row　+= '</li>'
 			$(".board ul").prepend(row);
 		}		
-		
+		/*更新棋盘 数据+样式*/
 		let check_update = function(){
 			let update_flag = 0;
 			let b_row = board_new.length,
@@ -596,6 +597,7 @@ $(function(){
 		board_init();
 		fall_init();
 		fall_auto($(".fall"));
+		$(".score").addClass('hide');
 	}
 
 	let game_stop = function(){
