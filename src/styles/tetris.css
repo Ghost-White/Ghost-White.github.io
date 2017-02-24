@@ -145,3 +145,17 @@
 	padding: 5px;
 	color: #363636;
 }
+.info-warn{
+	width: 380px;
+	height: 20px;
+	line-height: 20px;
+	position: absolute;
+	left: 700px;
+	top: 80px;
+	text-align: right;
+	font-size: 20px;
+}
+.info-warn span{
+	color: red;
+	font-weight: bold;
+}
