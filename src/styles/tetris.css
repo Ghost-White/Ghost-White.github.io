@@ -5,7 +5,7 @@
 	width: 400px;
 	height: 480px;
 	border:2px solid #ec9283;
-	margin: 120px 0 0 300px;
+	margin: 120px 0 0 200px;
 	position: relative;
 }
 
@@ -63,8 +63,8 @@
 	height: 190px;
 	position: absolute;
 	background: #f6cdc6;
-	top: 200px;
-	left: 800px;
+	top: 100px;
+	left: 700px;
 	border-radius: 10px;
 	overflow: hidden;
 	cursor: move;
@@ -120,4 +120,28 @@
 .move_change{
 	top: 10px;
 	left: 50px;
+}
+.error{
+	color: red;
+	font-weight: bold;
+}
+.info{
+	width: 380px;
+	position: absolute;
+	top: 320px;
+	left: 700px;
+}
+.info span{
+	color: green;
+}
+.score{
+	position: absolute;
+	top: 0;
+	left: 700px;
+	background-color: #f6cdc6;
+	font-weight: bold;
+	font-size: 28px;
+	border-radius: 5px;
+	padding: 5px;
+	color: #363636;
 }
