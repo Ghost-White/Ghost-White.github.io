@@ -459,6 +459,8 @@ $(function(){
 
 
 	/*积木左右平移*/
+	/*bug:连续点击向左，使得获取的左距离出错，
+	可以考虑增加全局变量l,t保存积木到左边界和上边界的距离*/
 	let fall_move = function(obj,direction){
 		let [x,y] = fall_coord;		
 		let l = $(obj).css('left');
